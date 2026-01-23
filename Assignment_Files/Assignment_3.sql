@@ -1,0 +1,282 @@
+-- Q1. Use the following functions: 
+
+-- 1. CHR(N)
+SELECT
+    CHR(82) AS CHR
+FROM
+    DUAL;
+
+-- 2. CONCAT(char1, char2)
+SELECT
+    CONCAT('LIVE', ' SQL') AS CONCAT
+FROM
+    DUAL;
+
+-- 3. INSTR(string, substring)
+SELECT
+    INSTR('DATABASE', 'T') AS INSTR
+FROM
+    DUAL;    
+
+-- 4. LENGTH(char)
+SELECT
+    LENGTH('LIVE SQL') AS LENGTH
+FROM
+    DUAL;
+
+-- 5. LPAD(char)
+SELECT
+    LPAD('@GMAIL.COM', 15, '*') AS LPAD
+FROM
+    DUAL;    
+
+-- 6. LTRIM(char)
+SELECT
+    LTRIM(' LIVE SQL') AS LTRIM
+FROM
+    DUAL;
+
+-- 7. RPAD(char)
+SELECT
+    RPAD('91', 10, '*') AS RPAD
+FROM
+    DUAL;
+
+-- 8. RTRIM(char)
+SELECT
+    RTRIM('LIVE SQL ') AS RTRIM
+FROM
+    DUAL;
+
+-- 9. REPLACE(char, search_string, replacement_string)
+SELECT
+    REPLACE('LIVE SQL', 'LIVE', 'MY') AS REPLACE
+FROM
+    DUAL;
+
+-- 10. SUBSTR(string, position, length)
+SELECT
+    SUBSTR('DATABASE', 1, 4) AS SUBSTR
+FROM
+    DUAL;
+
+-- 11. INITCAP(string)
+SELECT
+    INITCAP('LIVE SQL') AS INITCAP
+FROM
+    DUAL;
+
+-- 12. LOWER(string)
+SELECT
+    LOWER('DATABASE') AS LOWER
+FROM
+    DUAL;
+
+-- 13. UPPER(string)
+SELECT
+    UPPER('database') AS UPPER
+FROM
+    DUAL;
+
+-- 14. TRANSLATE(char, from string, to string)
+SELECT
+    TRANSLATE('+91-00000-00000', '0', 'X') AS TRANSLATE
+FROM
+    DUAL;
+
+-- 15. ABS(number)
+SELECT
+    ABS(-100) AS ABS
+FROM
+    DUAL;    
+
+-- 16. CEIL(number)
+SELECT
+    CEIL(100.1) AS CEIL
+FROM
+    DUAL;
+
+-- 17. COS(number)
+SELECT
+    COS(0) AS COS
+FROM
+    DUAL;
+
+-- 18. EXP(number)
+SELECT
+    EXP(1) AS EXP
+FROM
+    DUAL;
+
+-- 19. FLOOR(number)
+SELECT
+    FLOOR(100.33) AS FLOOR
+FROM
+    DUAL;
+
+-- 20. MOD(m, n)
+SELECT
+    MOD(3, 10) AS MOD
+FROM
+    DUAL;
+
+-- 21. POWER(x, y)
+SELECT
+    POWER(2, 3) AS POWER
+FROM
+    DUAL;
+
+-- 22. ROUND(number, decimal_places)
+SELECT
+    ROUND(123.45776, 2) AS ROUND
+FROM
+    DUAL;
+
+-- 23. SIGN(number)
+SELECT
+    SIGN(-120) AS SIGN
+FROM
+    DUAL;
+
+-- 24. SQRT(number)
+SELECT
+    SQRT(25) AS SQRT
+FROM
+    DUAL;
+
+-- 25. TRUNC(x, n)
+SELECT
+    TRUNC(DATE '2002-09-09', 'YYYY') AS TRUNC
+FROM
+    DUAL;
+
+-- 26. SYSDATE
+SELECT
+    SYSDATE
+FROM
+    DUAL;
+
+-- 27. ADD_MONTHS(date, number)
+SELECT
+    ADD_MONTHS(SYSDATE, 1) AS ADD_MONTHS
+FROM
+    DUAL;
+
+-- 28. LAST_DAY(date)
+SELECT
+    LAST_DAY(SYSDATE) AS LAST_DAY
+FROM
+    DUAL;
+
+-- 29. MONTHS_BETWEEN(date1, date2)
+SELECT
+    MONTHS_BETWEEN(SYSDATE, DATE '2024-01-23') AS MONTHS_BETWEEN
+FROM
+    DUAL;
+
+-- 30. NEXT_DAY(date, char)
+SELECT
+    NEXT_DAY(SYSDATE, 'MONDAY') AS NEXT_DAY
+FROM
+    DUAL;
+
+-- 31. GREATEST(expr)
+SELECT
+    GREATEST(10, 20, 6, 29) AS GREATEST
+FROM
+    DUAL;
+
+-- 32. LEAST(expr)
+SELECT
+    LEAST(10, 20, 6, 29) AS LEAST
+FROM
+    DUAL;
+
+-- Q2. Display current time in hour : min : sec format
+SELECT
+    TO_CHAR(SYSDATE, 'HH24:MI:SS') AS "TIME HH:MI:SS"
+FROM
+    DUAL;
+
+-- Q3. Display salary + commission of emp table
+SELECT
+    SALARY,
+    COMMISSION,
+    NVL(SALARY, 0) + NVL(COMMISSION, 0) AS TOTAL_PAY
+FROM
+    EMPLOYEES
+ORDER BY
+    TOTAL_PAY;
+ 
+-- Q4. Store any date value in hiredate column of table ?
+UPDATE EMPLOYEES
+SET
+    HIRE_DATE =
+        CASE EMP_NO
+            WHEN 1 THEN
+                DATE '2005-01-10'
+            WHEN 2 THEN
+                DATE '2026-07-03'
+            WHEN 3 THEN
+                DATE '2000-04-15'
+            WHEN 4 THEN
+                DATE '1985-11-22'
+            WHEN 5 THEN
+                DATE '1985-02-02'
+        END
+WHERE
+    EMP_NO IN ( 1, 2, 3, 4, 5 );
+ 
+-- Q5. Display name of employee(s) who join the company in 1985 ?
+SELECT
+    EMP_NAME
+FROM
+    EMPLOYEES
+WHERE
+    EXTRACT(YEAR FROM HIRE_DATE) = 1985;
+ 
+-- Q6. Display name of the employee(s) who join the company this year ?
+SELECT
+    EMP_NAME
+FROM
+    EMPLOYEES
+WHERE
+    EXTRACT(YEAR FROM HIRE_DATE) = EXTRACT(YEAR FROM SYSDATE);
+
+-- Q7 (EXTRA). Create table EMPLOYEES
+CREATE TABLE EMPLOYEES (
+    EMP_NO     NUMBER,
+    EMP_NAME   VARCHAR2(100),
+    JOB        VARCHAR2(50),
+    SALARY     DECIMAL(10, 2),
+    COMMISSION DECIMAL(10, 2),
+    DEPT_NO    NUMBER,
+    HIRE_DATE  DATE
+);
+
+-- Q8 (EXTRA). Insert sample records into EMPLOYEES
+INSERT ALL
+    INTO EMPLOYEES (EMP_NO, EMP_NAME, JOB, SALARY, COMMISSION, DEPT_NO)
+    VALUES (1, 'AMIT', 'SOFTWARE ENGINEER', 3000.20, NULL, 10)
+
+    INTO EMPLOYEES (EMP_NO, EMP_NAME, JOB, SALARY, COMMISSION, DEPT_NO)
+    VALUES (2, 'ABHINAV', 'CLERK', 2000.43, 200.10, 30)
+
+    INTO EMPLOYEES (EMP_NO, EMP_NAME, JOB, SALARY, COMMISSION, DEPT_NO)
+    VALUES (3, 'RAJ', 'SALESPERSON', 2500.90, NULL, 10)
+
+    INTO EMPLOYEES (EMP_NO, EMP_NAME, JOB, SALARY, COMMISSION, DEPT_NO)
+    VALUES (4, 'BHAVYA', 'PRODUCT MANAGER', 5000.10, 500.20, 20)
+
+    INTO EMPLOYEES (EMP_NO, EMP_NAME, JOB, SALARY, COMMISSION, DEPT_NO)
+    VALUES (5, 'MANYA', 'CLERK', 1200.40, NULL, 30)
+SELECT * FROM dual;
+
+-- Q9 (EXTRA). Display all records from EMPLOYEES
+SELECT
+    *
+FROM
+    EMPLOYEES;
+
+-- Q10 (EXTRA). Drop table EMPLOYEES
+DROP TABLE EMPLOYEES;
